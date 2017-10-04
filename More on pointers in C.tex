@@ -1,0 +1,200 @@
+\documentclass[twosides]{article}
+\title{More on pointers in C}
+\author{CSC315 Programming Language Concepts}
+\date{04 October 2017}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\usepackage{listings}
+\lstset{language=c}
+\begin{document}
+\maketitle
+
+\section{Pointers to functions}
+
+Move the code that constructs a calculator
+from the \lstinline+main()+ function into
+a separate function.
+
+\begin{lstlisting}{}
+#include <stdio.h>
+#include <stdlib.h>
+
+// Create a name for a pointer to a 
+// function that has two double precision
+// floating point arguments and returns to
+// its caller a double precision floating
+// point value.
+typedef double (*myFunctionPointer)(double a,double b) ;
+
+// Here's a declaration of a pointer to
+// a function that has two double arguments
+// and returns a double to its caller.
+double (*functionPointer)(double a, double b) ;
+
+// Declare and define four simple functions.
+double add( double x, double y ) {
+  return x + y ;
+} // add( double, double )
+
+double subtract( double x, double y ) {
+  return x - y ;
+} // subtract( double, double )
+
+double multiply( double x, double y ) {
+  return x * y ;
+} // multiply( double, double )
+
+double divide( double x, double y ) {
+  return x / y ;
+} // divide( double, double )
+
+// Define a data structure
+// that contains pointers to functions.
+struct calculator {
+  myFunctionPointer ap ;
+  myFunctionPointer sp ;
+  myFunctionPointer mp ;
+  myFunctionPointer dp ;
+} ;
+
+
+// Create aliases for the struct and for pointers
+// to the struct.
+typedef struct calculator Calculator, *CalculatorPointer ;
+
+
+int main( int argc, char **argv ) {
+
+  functionPointer = add ;
+
+  printf( "size of function pointer = %d\n",
+      sizeof(functionPointer)) ;
+  printf( "3 + 4 = %8.4f\n", functionPointer(3,4)) ;
+
+  // Create a struct that contains pointers to four functions.
+  // Store the address of the struct in a pointer.
+  CalculatorPointer cp =
+      (CalculatorPointer) malloc(sizeof(Calculator)) ;
+  
+  // Initialize the struct by assigning
+  // the addresses of four functions to
+  // the function pointers in the struct.
+  cp->ap = add ;
+  cp->sp = subtract ;
+  cp->mp = multiply ;
+  cp->dp = divide ;
+
+
+  printf( "\n\n" ) ;
+
+  // Compute and print sum, difference, product,
+  // and quotient. Show how to use a pointer
+  // to a struct and pointers to functions.
+  printf( "3 + 4 = %8.4f\n", cp->ap(3,4) ) ;
+  printf( "3 - 4 = %8.4f\n", cp->sp(3,4) ) ;
+  printf( "3 * 4 = %8.4f\n", cp->mp(3,4) ) ;
+  printf( "3 / 4 = %8.4f\n", cp->dp(3,4) ) ;
+
+  // Compute and print same results once
+  // again, but this time showing another
+  // way to use the pointers.
+  printf( "\n\n" ) ;
+
+  printf( "3 + 4 = %8.4f\n", (*cp).ap(3,4) ) ;
+  printf( "3 - 4 = %8.4f\n", (*cp).sp(3,4) ) ;
+  printf( "3 * 4 = %8.4f\n", (*cp).mp(3,4) ) ;
+  printf( "3 / 4 = %8.4f\n", (*cp).dp(3,4) ) ;
+
+
+} // main( int, char **  )
+  \end{lstlisting}
+
+\section{Binary search tree}
+
+This program requires one or more integer
+arguments on the command line.
+
+Add a function that will compute the height
+of the tree that the program constructs.
+Use the \lstinline+printNodes()+ function as
+a model.
+
+\begin{lstlisting}{}
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+  int value ;
+  struct node* lp;
+  struct node* rp;
+} ;
+
+typedef struct node Node ;
+typedef struct node* NodePointer;
+
+NodePointer createRoot( int n ) {
+  NodePointer np = (NodePointer) malloc( sizeof(Node) ) ;
+  np->value = n ;
+  np->lp = NULL ;
+  np->rp = NULL ;
+  return np ;
+} // createRoot( int )
+
+NodePointer addNode( NodePointer np, int n ) {
+  NodePointer rp = np ;
+
+  if( np == NULL ) {
+    rp = createRoot( n ) ;
+  } // if
+  else if( n < np->value ) {
+    if( np->lp == NULL ) {
+      np->lp = createRoot( n ) ;
+    } // if
+    else {
+      np->lp = addNode( np->lp, n ) ;
+    } // else
+  } // else if
+  else if( n > np->value ) {
+    if( np->rp == NULL ) {
+      np->rp = createRoot( n ) ;
+    } // if
+    else {
+      np->rp = addNode( np->rp, n ) ;
+    } // else
+  } // else if
+  else {
+    // if value to be added is already in tree, do nothing
+    // (do not add duplicate values to tree)
+  } // /else
+
+  return rp;
+} // addNode( NodePointer, int )
+
+void printNodes( NodePointer np ) {
+  if( np != NULL ) {
+    printNodes( np->lp ) ;
+    printf( "value at node = %4d\n", np->value ) ;
+    printNodes( np->rp ) ;
+  } // if
+} // printNodes( NodePointer )
+
+int main( int argc, char** argv ) {
+
+  if( argc > 1 ) {
+
+    NodePointer rp = createRoot( atoi(argv[1]) ) ;
+
+    int i;
+    for( i = 2; i < argc; i++ ) {
+      rp = addNode( rp, atoi(argv[i]) ) ;
+    } // for
+
+    printNodes( rp ) ;
+  } // if
+
+} // main( int, char** )
+  \end{lstlisting}
+
+\end{document}
