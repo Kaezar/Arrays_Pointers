@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Create a name for a pointer to a 
+// Create a name for a pointer to a
 // function that has two double precision
 // floating point arguments and returns to
 // its caller a double precision floating
@@ -57,7 +57,7 @@ int main( int argc, char **argv ) {
   // Store the address of the struct in a pointer.
   CalculatorPointer cp =
       (CalculatorPointer) malloc(sizeof(Calculator)) ;
-  
+
   // Initialize the struct by assigning
   // the addresses of four functions to
   // the function pointers in the struct.

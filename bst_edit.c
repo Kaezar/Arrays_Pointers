@@ -64,7 +64,7 @@ int height(NodePointer np) {
     int leftHeight = height(np->lp);
     int rightHeight = height(np->rp);
 
-    if(leftHeight > rightHeight) 
+    if(leftHeight > rightHeight)
       return (leftHeight+1);
       else return (rightHeight+1);
   }

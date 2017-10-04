@@ -95,5 +95,5 @@ int main( int argc, char** argv ) {
   printf( "after call to g(), " );
   printf( "address of oneIntegerArray[0]  = %lu\n",
       (unsigned long) &oneIntegerArray[0] );
-  
+
 } // main( int, char** )

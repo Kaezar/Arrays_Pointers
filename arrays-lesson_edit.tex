@@ -24,18 +24,18 @@
   \item What does the statement \lstinline@int* np = &n;@ accomplish?
 
   \begin{answer}
-    It assigns the address of a variable named \lstinline@n@ to 
+    It assigns the address of a variable named \lstinline@n@ to
     a variable named \lstinline@np@.
     \end{answer}
 
-  \item What is the difference between the function labeled \lstinline@f@ 
+  \item What is the difference between the function labeled \lstinline@f@
   and the function labeled \lstinline@g@?
 
   \begin{answer}
-    The function labeled \lstinline@f@ effectively does nothing, as the 
-    integer value passed to it is only a copy and the return value is void. 
-    On the other hand, the function labeled \lstinline@g@ is passed a pointer 
-    to an address in memory, and the function changes the value at that address 
+    The function labeled \lstinline@f@ effectively does nothing, as the
+    integer value passed to it is only a copy and the return value is void.
+    On the other hand, the function labeled \lstinline@g@ is passed a pointer
+    to an address in memory, and the function changes the value at that address
     to 42.
     \end{answer}
 
@@ -142,7 +142,7 @@ int main( int argc, char** argv ) {
   printf( "after call to g(), " );
   printf( "address of oneIntegerArray[0]  = %lu\n",
       (unsigned long) &oneIntegerArray[0] );
-  
+
 } // main( int, char** )
   \end{lstlisting}
 

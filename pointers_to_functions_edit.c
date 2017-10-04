@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Create a name for a pointer to a 
+// Create a name for a pointer to a
 // function that has two double precision
 // floating point arguments and returns to
 // its caller a double precision floating
