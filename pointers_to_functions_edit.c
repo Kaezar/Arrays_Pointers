@@ -58,7 +58,7 @@ int main( int argc, char **argv ) {
 
   functionPointer = add ;
 
-  printf( "size of function pointer = %d\n",
+  printf( "size of function pointer = %lu\n",
       sizeof(functionPointer)) ;
   printf( "3 + 4 = %8.4f\n", functionPointer(3,4)) ;
 
